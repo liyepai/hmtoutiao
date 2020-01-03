@@ -9,10 +9,9 @@ props: ['zhengze','msg'],
 data () {
     return {
         //用来判断是不是符合条件
-        statu:''
+        statu:true
     } 
 },
-
 methods: {
     jianyan(error){
 

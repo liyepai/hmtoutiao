@@ -1,12 +1,16 @@
 <template>
-  <div id="btn">
+  <div id="btn" @click="dianji">
      <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
-
+  methods: {
+    dianji(event){
+    this.$emit('click',event)
+    }
+  }
 }
 </script> 
 

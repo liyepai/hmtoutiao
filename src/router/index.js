@@ -19,6 +19,29 @@ let router =new VueRouter({
         }
     ]
 })
+//在这里做导航守卫 看看登录时是否有token值
+//导航守卫：前置守卫：在跳转之前进行调用
+//所有的路由跳转请求都会结果这个导航守卫
+//to：目标路由，from：源路由  next：下一步操作  就是用户当前需要进行的操作
+
+router.beforeEach((to, from, next) => {
+ //验证是否访问的是个人中心页面
+ if(to.path.indexOf('/personal') ===0){
+  let token=localStorage.getItem('token')
+  if(token){
+    next()
+  }else{
+      //如果没有token  就 跳转到登录页面登录
+      next({name:'Login'})
+  }
+ }else{
+     //如果不是访问授权的网站就直接执行下一步 比如新闻页面 不需要登录
+     next()
+ }
+  
+})
+
+
 
 
 export default router

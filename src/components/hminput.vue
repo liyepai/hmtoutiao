@@ -11,7 +11,7 @@ data () {
         //用来判断是不是符合条件
         statu:true
     } 
-},
+}, 
 methods: {
     jianyan(error){ 
     let value = error.target.value

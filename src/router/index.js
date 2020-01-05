@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Login from '../views/Login.vue'
 import Personal from '../views/Personal.vue'
+import editPersonal from '../views/editPersonal.vue'
 Vue.use(VueRouter)
 
 let router =new VueRouter({
@@ -17,7 +18,12 @@ let router =new VueRouter({
             name:'Personal',
             path:'/personal/:id',
             component: Personal
-        }
+        },
+        {
+            name:'editPersonal',
+            path:'/editPersonal/:id',
+            component: editPersonal
+        },
     ]
 })
 //在这里做导航守卫 看看登录时是否有token值

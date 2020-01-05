@@ -62,7 +62,6 @@ export default {
       ) {
         //调用接口 使用关键字 代表 得执行完这一步   后面的代码开可以执行  同步
         let res = await login(this.users); //记得，我们刚刚设置接口 是需要穿参进去的
-        console.log(res);
         if (res.data.message === "用户不存在") {
           this.$toast(res.data.message);
         } else {
@@ -71,7 +70,10 @@ export default {
           localStorage.setItem('token',res.data.data.token)
           //将用户的id 保存起来 在后面需要用到
           localStorage.setItem('userId',res.data.data.user.id)
-          this.$router.push({name:'Personal'})
+
+          //我们修改了路由  那么成功跳转这个路径得加上id
+          // this.$router.push({name:'Personal'})
+          this.$router.push({path:`/personal/${res.data.data.user.id}`})
         }
       } else {
         this.$toast.fail("用户数据输入不合法");

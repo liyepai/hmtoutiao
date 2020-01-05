@@ -12,9 +12,10 @@ let router =new VueRouter({
             path:'/login',
             component: Login
         },
+        // 我们跳转到个人中心页面  得根据id来跳转 才能获取对于的数据 渲染个人中心页面的信息
         {
             name:'Personal',
-            path:'/personal',
+            path:'/personal/:id',
             component: Personal
         }
     ]

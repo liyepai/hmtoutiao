@@ -15,6 +15,7 @@ data () {
 methods: {
     jianyan(error){
 
+    jianyan(error){ 
     let value = error.target.value
     //利用父类 传过来的正则表达式  来判断  我们这个框内的值 是否符合，如果符合  就
      if(this.zhengze && this.zhengze.test(value)){

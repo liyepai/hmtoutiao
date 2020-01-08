@@ -22,12 +22,29 @@
           v-for="cateKey in cateList"
           :key="cateKey.id"
         >
+          <van-list
+            v-model="cateKey.loading"
+            :finished="cateKey.finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+            :immediate-check="false"
+            :offset="10"
+          >
+            <van-pull-refresh
+              v-model="cateKey.isLoading"
+              @refresh="onRefresh"
+              success-text="刷新成功"
+            >
+              <xinwenlan
+                v-for="danqian in cateKey.postList"
+                :key="danqian.id"
+                :shuju="danqian"
+                @click="$router.push({path:`/xianfqing/${danqian.id}`})"
+              ></xinwenlan>
+            </van-pull-refresh>
+          </van-list>
+
           <!-- 遍历动态生成新闻数据 -->
-          <xinwenlan
-            v-for="danqian in cateKey.postList"
-            :key="danqian.id"
-            :shuju="danqian"
-          ></xinwenlan>
         </van-tab>
       </van-tabs>
     </div>
@@ -39,6 +56,7 @@
 import { getCateList } from "../apis/cate";
 import { getPostList } from "../apis/article";
 import xinwenlan from "../components/xinwenlan";
+import { setTimeout } from "timers";
 export default {
   components: {
     xinwenlan
@@ -52,32 +70,27 @@ export default {
   },
 
   watch: {
-    //  滑动触发与点击触发 栏目 可以获得到栏目名与栏目id  我们可以不用去注册点击触发事件与滑动触发事件
-    //直接监听我们这个active  一旦变化就触发
-    //监听这个变量:无论移动还是惦记 这个变量都会变得  所有  一旦变化 我们就重新发送请求
-    //  this.into();是个请求的方法
     active() {
-      //可以获取到当前栏目的id  可以就可以发送请求 获取数据  其实我们下面已经写好了
-    //一旦我们点击了就发送请求加载了这时已经存到数据  生成好了 
-    //如果点击别的  然后又回头点击这个  又得发送请求加载一次 这样不好 
-    //如果这个存新闻数据的数组长度是0  就是 之前没有点击加载过 那么才发送请求加载
-    if(this.cateList[this.active].postList.length ===0){
-         this.into();
-    }
+      if (this.cateList[this.active].postList.length === 0) {
+        this.into();
+      }
     }
   },
 
   async mounted() {
     let res = await getCateList();
     this.cateList = res.data.data;
-
-    //改造  加页面条数 存储的新闻数据的数组 停留的页面
     this.cateList = this.cateList.map(value => {
       return {
         ...value,
         postList: [],
-        pageSize: 10,
-        pageIndex: 1
+        pageSize: 6, //一页显示6条数据
+        pageIndex: 1,
+        //增加改造:下拉加载
+        loading: false, //这个栏目的加载状态，
+        finished: false, //这个栏目数据是否加载完成
+        //上拉刷新新数据
+        isLoading: false
       };
     });
     //发送请求动态渲染新闻块
@@ -91,10 +104,45 @@ export default {
         pageSize: this.cateList[this.active].pageSize,
         category: id
       });
-      //将这个数据 存到我们定义的数组里
-      this.cateList[this.active].postList = res2.data.data;
-      //当前这个对象已经有数据了  动态渲染起来
-    }
+
+      //上面执行完  这步才执行   false  表示执行完成
+      if (this.cateList[this.active].loading) {
+        this.cateList[this.active].loading = false;
+      }
+
+      //重置刷新的标记，让他能刷新  如果不设置，我们先下啦加载到最后，再上拉加载  加载完再下拉 那么他是没有加载到数据的
+      //因为到底面的时候
+      if (this.cateList[this.active].isLoading) {
+        this.cateList[this.active].isLoading = false;
+      }
+      if (res2.data.data.length < this.cateList[this.active].pageSize) {
+        this.cateList[this.active].finished = true;
+      }
+      this.cateList[this.active].postList.push(...res2.data.data);
+    },
+
+    //自动触发load事件
+    onLoad() {
+      this.cateList[this.active].pageIndex++;
+      setTimeout(() => {
+        this.into();
+      }, 1000);
+    },
+    onRefresh() {
+      //刷新，重置页面为第一页
+
+      console.log(111);
+
+      this.cateList[this.active].pageIndex = 1;
+      //清空数据重新请求
+      this.cateList[this.active].postList.length = 0;
+
+      this.into();
+
+      //重置
+      this.cateList[this.active].finished = false;
+    },
+   
   }
 };
 </script>

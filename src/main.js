@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router/index'
 //引入全局样式
 import '@/style/reset.css'
-import { Toast,Uploader,Dialog,Field,Picker, Icon,Tab, Tabs } from 'vant';
+import { Toast,Uploader,Dialog,Field,Picker, Icon,Tab, Tabs,List,PullRefresh } from 'vant';
 Vue.use(Toast) //轻提示
    .use(Uploader)//文件上传的组件
    .use(Dialog )
@@ -13,6 +13,8 @@ Vue.use(Toast) //轻提示
     .use(Icon)
    .use(Tab)
    .use(Tabs)
+   .use(List)
+   .use(PullRefresh)
 
 Vue.config.productionTip = false
 

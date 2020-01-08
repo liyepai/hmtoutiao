@@ -9,7 +9,6 @@
 <script>
 export default {
     props: ['zuo','you','type'],
-   
    //修改点击
    methods: {
        dianji(event){

@@ -36,3 +36,27 @@ export const register =(data)=>{
    }) 
 
 }
+//获取新闻详情的接口
+export const getArticleById =(id)=>{
+   return axios ({
+      url:`/post/${id}`
+   }) 
+}
+//关注用户
+export const guangzhu =(id)=>{
+    return axios({
+       url:`/user_follows/${id}`
+    })
+}
+//取消
+export const quxiao =(id)=>{
+   return axios({
+      url:`/user_unfollow/${id}`
+   })
+}
+//点赞
+export const dianzan =(id)=>{
+   return axios({
+      url:`/post_like/${id}`
+   })
+}

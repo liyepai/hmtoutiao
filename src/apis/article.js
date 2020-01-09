@@ -6,3 +6,12 @@ export const getPostList=(params)=>{
     })
 }
 //获取新闻数据的列表
+
+//发布评论
+export const fabu =(id,data)=>{
+  return axios ({
+      method:'post',
+      url:`/post_comment/${id}`,
+      data
+  })
+}

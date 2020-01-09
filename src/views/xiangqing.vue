@@ -27,11 +27,13 @@
       <div class="opt">
         <span
           class="like"
-     :class="article.has_like ? 'reds' : ''"
+          :class="article.has_like ? 'reds' : ''"
           @click="dianzan"
-       
         >
-          <van-icon name="good-job-o" :class="article.has_like ? 'reds' : ''"/>{{article.has_like?`点赞${article.like_length}`:'点赞'}}
+          <van-icon
+            name="good-job-o"
+            :class="article.has_like ? 'reds' : ''"
+          />{{ `点赞${article.like_length}` }}
         </span>
         <span class="chat"> <van-icon name="chat" class="w" />微信 </span>
       </div>
@@ -52,12 +54,17 @@
       </div>
       <div class="more">更多跟帖</div>
     </div>
+    <dibu :post='article'></dibu>
   </div>
 </template>
 
 <script>
 import { getArticleById, guangzhu, quxiao, dianzan } from "../apis/user";
+import dibu from "../components/dibulan";
 export default {
+  components: {
+    dibu
+  },
   data() {
     return {
       article: {
@@ -69,6 +76,7 @@ export default {
   async mounted() {
     //发送请求动态渲染
     let res = await getArticleById(this.$route.params.id);
+
     this.article = res.data.data;
   },
   methods: {
@@ -87,14 +95,15 @@ export default {
       let res = await dianzan(this.article.id);
       console.log(res);
 
-      if (res.data.message == '点赞成功') {
+      if (res.data.message == "点赞成功") {
         ++this.article.like_length;
-      } else{
+      } else {
         --this.article.like_length;
       }
       this.article.has_like = !this.article.has_like;
       this.$toast.success(res.data.message);
-    }
+    },
+   
   }
 };
 </script>
@@ -147,8 +156,12 @@ export default {
     font-size: 15px;
     padding-bottom: 30px;
     width: 100%;
-    img {
+    /deep/.photo > {
       width: 100%;
+      /deep/ a {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 }
@@ -220,6 +233,7 @@ export default {
     border-radius: 15px;
     margin: 20px auto;
     font-size: 13px;
+    
   }
 }
 .red {

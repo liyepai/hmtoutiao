@@ -4,8 +4,11 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Personal from '../views/Personal.vue'
 import editPersonal from '../views/editPersonal.vue'
-import Index from '../views/index2.vue'
+import Index from '../views/index.vue'
 import Register from '../views/register.vue'
+import Xianfqing from '../views/xiangqing.vue'
+import Guanzhu from '../views/guanzhu.vue'
+import Pinglun from '../views/jincaipinglun.vue'
 Vue.use(VueRouter)
 
 let router =new VueRouter({
@@ -14,6 +17,16 @@ let router =new VueRouter({
             name:'Login',
             path:'/login',
             component: Login
+        },
+        {
+            name:'Pinglun',
+            path:'/pinglun/:id',
+            component: Pinglun
+        },
+        {
+            name:'Guanzhu',
+            path:'/guanzhu',
+            component: Guanzhu
         },
         // 我们跳转到个人中心页面  得根据id来跳转 才能获取对于的数据 渲染个人中心页面的信息
         {
@@ -35,6 +48,11 @@ let router =new VueRouter({
             name:'Register',
             path:'/register',
             component: Register
+        },
+        {
+            name:'Xianfqing',
+            path:'/xianfqing/:id',
+            component: Xianfqing
         },
     ]
 })

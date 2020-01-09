@@ -60,3 +60,29 @@ export const dianzan =(id)=>{
       url:`/post_like/${id}`
    })
 }
+//收藏
+export const shoucan =(id)=>{
+   return axios({
+      url:`/post_star/${id}`
+   })
+}
+//用户关注列表
+export const huoquguanzhu=()=>{
+   return axios({
+      url:`/user_follows`
+   })
+}
+//取消关注
+
+export const quxiaoguanzhu=(id)=>{
+   return axios({
+      url:`/user_unfollow/${id}`
+   })
+}
+//获取评论列表
+export const getpinglun =(id,params)=>{
+    return axios({
+       url:`/post_comment/${id}`,
+       params
+    })
+}

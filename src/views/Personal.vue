@@ -17,10 +17,11 @@
     </router-link>
     <!-- 引用的是封装的单元格 -->
     <danyuange zuo="我的关注" you="关注的用户" @click='$router.push({name:"Guanzhu"})'></danyuange>
-    <danyuange zuo="我的跟帖" you="跟帖/回复"></danyuange>
+    <danyuange zuo="我的跟帖" you="跟帖/回复" @click='$router.push({name:"Shoucan"})'></danyuange>
     <danyuange zuo="我的收藏" you="文章/视频"></danyuange>
     <danyuange zuo="设置"></danyuange>
     <mybtn class="mybtn" @click="dianji">退出</mybtn>
+    <mybtn class="mybtn" @click="$router.push({name:'Index'})">进入新闻页</mybtn>
   </div>
 </template>
 >

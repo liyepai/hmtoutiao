@@ -15,11 +15,16 @@
             <p>{{ aa.user.nickname }}</p>
             <span>{{ aa.user.create_date }}</span>
           </div>
-          <span @click="huifu(aa)">回复层</span>
+          <span @click="huifu(aa)">（父组件的回复）</span>
         </div>
         <!-- 上面是头像那一栏   要判断 万一他没有parent是会报错的-->
         <!-- 有些再第一次就parent: null了 -->
-        <fzpinglun v-if="aa.parent" :parent="aa.parent"></fzpinglun>
+        <!-- 接收子组件的‘gaosu’   与上面的huifi共用就可以  如果我们点击到的是子纸组件里的回复那么就执行下行代码   -->
+        <fzpinglun
+          v-if="aa.parent"
+          :parent="aa.parent"
+          @suibian="huifu"
+        ></fzpinglun>
         <!-- 下面是第一次的评论 -->
         <div class="text">{{ aa.content }}</div>
       </div>
@@ -30,6 +35,7 @@
       @shuaxin="keyishuaxin"
       :obj="kongobj"
       @congzi="kongobj = null"
+      
     ></dibulan>
   </div>
 </template>
@@ -82,7 +88,7 @@ export default {
 
     keyishuaxin() {
       //dibulan组件传过来的事件 他叫我们重新加载数据 刷新页面让留到窗口最前
-    
+
       this.init();
       window.scrollTo(0, 0);
     },
@@ -91,7 +97,9 @@ export default {
     huifu(aa) {
       //aa是上面循环的对象
       // console.log(aa);
-
+      console.log(aa);
+    //子组件与父组件  递归组件  都共用这个方法 
+    //改变这个对象  这个对象是给底部栏封装的  如果有变化 就显示框
       this.kongobj = aa;
     }
   }

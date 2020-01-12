@@ -9,6 +9,9 @@ import Register from '../views/register.vue'
 import Xianfqing from '../views/xiangqing.vue'
 import Guanzhu from '../views/guanzhu.vue'
 import Pinglun from '../views/jincaipinglun.vue'
+import Lanmuguanli from '../views/lanmuguanli.vue'
+import Search from '../views/Search.vue'
+import Shoucan from '../views/shoucan.vue'
 Vue.use(VueRouter)
 
 let router =new VueRouter({
@@ -17,6 +20,21 @@ let router =new VueRouter({
             name:'Login',
             path:'/login',
             component: Login
+        },
+        {
+            name:'Shoucan',
+            path:'/shoucan',
+            component: Shoucan
+        },
+        {
+            name:'Search',
+            path:'/search',
+            component: Search
+        },
+        {
+            name:'Lanmuguanli',
+            path:'/lanmuguanli',
+            component: Lanmuguanli
         },
         {
             name:'Pinglun',

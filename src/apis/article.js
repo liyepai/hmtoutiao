@@ -15,3 +15,11 @@ export const fabu =(id,data)=>{
       data
   })
 }
+
+//搜索文章
+export const sousuo =(params)=>{
+    return axios ({  
+        url:`/post_search`,
+        params
+    })
+  }

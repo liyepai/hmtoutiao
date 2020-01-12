@@ -86,3 +86,8 @@ export const getpinglun =(id,params)=>{
        params
     })
 }
+export const getUserStars = ()=>{
+   return axios({
+       url:`/user_star`
+   })
+}

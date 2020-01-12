@@ -38,14 +38,11 @@ export default {
   //监听父类传过来的obj对象
   watch: {
     obj() {
-
       console.log(this.obj);
-      
+
       // console.log('监听到了变化');
       //如果变化了 就是代表点击到回复  这是 让弹框显示
       if (this.obj) {
-        console.log(123);
-        
         this.isFocus = true;
       }
     }
@@ -65,7 +62,7 @@ export default {
     },
     async fasong() {
       // console.log(this.obj);
-      
+
       //获取框内的发送框的值:content是我们请求服务器带过去的数据
       let data = {
         content: this.$refs.commtext.value
@@ -77,7 +74,7 @@ export default {
       }
       let res1 = await fabu(this.post.id, data);
       console.log(res1);
-      if (res1.data.message == "评论发布成功") {        
+      if (res1.data.message == "评论发布成功") {
         //让发布框消失，
         this.isFocus = false;
         //清空框里的内容

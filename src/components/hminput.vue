@@ -12,7 +12,7 @@ data () {
         statu:true
     } 
 }, 
-methods: {
+methods: { 
     jianyan(error){ 
     let value = error.target.value
     //利用父类 传过来的正则表达式  来判断  我们这个框内的值 是否符合，如果符合  就

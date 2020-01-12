@@ -1,12 +1,13 @@
 <template>
   <div class="pl">
-    <fzpinglun v-if="parent.parent" :parent="parent.parent"></fzpinglun>
+    <fzpinglun v-if="parent.parent" :parent="parent.parent" @suibian='dianji' ></fzpinglun>
+
     <div class="top">
       <div class="left">
         <span>{{ parent.user.nickname }}</span> &nbsp;&nbsp;&nbsp;
         <span>2分钟前</span>
       </div>
-      <span>回复</span>
+      <span @click="dianji(parent)">回复（直接子组件，也有递归的回复）</span>
     </div>
     <div class="bottom">{{ parent.content }}</div>
   </div>
@@ -16,7 +17,17 @@
 // 调用自己本身的组件
 export default {
   props: ["parent"],
-  name: "fzpinglun"
+  //自己调用自己
+  name: "fzpinglun",
+
+  methods: {
+    dianji(parent){
+      //可以得到点击的当前框的所有信息，要告诉父组件
+    // console.log(parent);
+     this.$emit('suibian',parent)
+    },
+    
+  }
 };
 </script>
 
